@@ -1,50 +1,52 @@
-import React, { Component } from "react";
-import logo from "./logo.svg";
+import React, { useState, useEffect } from "react";
+import Preloader from "../src/components/Pre";
+import Navbar from "./components/Navbar";
+import Home from "./components/Home/Home";
+import About from "./components/About/About";
+import Projects from "./components/Projects/Projects";
+import Footer from "./components/Footer";
+import Resume from "./components/Resume/ResumeNew";
+import Experience from "./components/Experience/Experience";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
+import ScrollToTop from "./components/ScrollToTop";
+import "./style.css";
 import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
-import About from "./About";
+function App() {
+  const [load, upadateLoad] = useState(true);
 
-class LambdaDemo extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { loading: false, msg: null };
-  }
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      upadateLoad(false);
+    }, 1200);
 
-  handleClick = (api) => (e) => {
-    e.preventDefault();
+    return () => clearTimeout(timer);
+  }, []);
 
-    this.setState({ loading: true });
-    fetch("/.netlify/functions/" + api)
-      .then((response) => response.json())
-      .then((json) => this.setState({ loading: false, msg: json.msg }));
-  };
-
-  render() {
-    const { loading, msg } = this.state;
-
-    return (
-      <p>
-        <button onClick={this.handleClick("hello")}>
-          {loading ? "Loading..." : "Call Lambda"}
-        </button>
-        <button onClick={this.handleClick("async-dadjoke")}>
-          {loading ? "Loading..." : "Call Async Lambda"}
-        </button>
-        <br />
-        <span>{msg}</span>
-      </p>
-    );
-  }
-}
-
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <About />
+  return (
+    <Router>
+      <Preloader load={load} />
+      <div className="App" id={load ? "no-scroll" : "scroll"}>
+        <Navbar />
+        <ScrollToTop />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/projects" element={<Projects />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/resume" element={<Resume />} />
+          <Route path="/experience" element={<Experience />} />
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+        <Footer />
       </div>
-    );
-  }
+    </Router>
+  );
 }
 
 export default App;
