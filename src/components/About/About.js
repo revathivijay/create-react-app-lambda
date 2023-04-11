@@ -5,7 +5,6 @@ import Github from "./Github";
 import Techstack from "./Techstack";
 import Aboutcard from "./AboutCard";
 import laptopImg from "../../Assets/about.png";
-import violin from "../../Assets/violin.png";
 
 function About() {
   return (
