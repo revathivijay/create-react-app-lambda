@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import logo from "./logo.svg";
 import "./App.css";
 
 import About from "./About";
@@ -38,7 +39,11 @@ class LambdaDemo extends Component {
 
 class App extends Component {
   render() {
-    return <div className="App"></div>;
+    return (
+      <div className="App">
+        <About />
+      </div>
+    );
   }
 }
 
