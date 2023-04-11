@@ -38,11 +38,7 @@ class LambdaDemo extends Component {
 
 class App extends Component {
   render() {
-    return (
-      <div className="App">
-        <About />
-      </div>
-    );
+    return <div className="App"></div>;
   }
 }
 
